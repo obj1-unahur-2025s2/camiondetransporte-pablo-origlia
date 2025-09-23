@@ -1,9 +1,76 @@
 import camion.*
+import cosas.*
 
-describe "group of test for camion" {
-
-  test "first test" {
-    assert.that(true)
+describe "Test para camion" {
+  test "Peso de camion vacio" {
+    assert.equals(1000, camion.peso())
   }
 
+  test "Peso de camion lleno pero despues vacio" {
+    camion.cargar(bumblebee)
+    camion.cargar(knightRider)
+    camion.descargar(bumblebee)
+    camion.descargar(knightRider)
+    assert.equals(1000, camion.peso())
+  }
+
+
+  test "Peso de camion con 123 ladrillos" {
+    paqueteDeLadrillos.cantidadDeLadillos(123)
+    camion.cargar(paqueteDeLadrillos)
+    assert.equals(1246, camion.peso())
+  }
+  
+  test "Peso de camion con 123 ladrillos y bumblebee como auto" {
+    paqueteDeLadrillos.cantidadDeLadillos(123)
+    camion.cargar(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    assert.equals(2046, camion.peso())
+  }
+  
+  test "Peso de camion con 123 ladrillos y bumblebee como robot" {
+    paqueteDeLadrillos.cantidadDeLadillos(123)
+    bumblebee.transformar()
+    camion.cargar(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    assert.equals(2046, camion.peso())
+  }
+
+  test "Pesos pares de camion con 123 ladrillos y bumblebee como robot" {
+    paqueteDeLadrillos.cantidadDeLadillos(123)
+    bumblebee.transformar()
+    camion.cargar(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    assert.that(camion.pesosPares())
+  }
+
+  test "Pesos no pares de camion con 123 ladrillos, arena y bumblebee como robot" {
+    paqueteDeLadrillos.cantidadDeLadillos(123)
+    bumblebee.transformar()
+    camion.cargar(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    arenaAGranel.peso(1234567)
+    camion.cargar(arenaAGranel)
+    assert.notThat(camion.pesosPares())
+  }  
+
+  test "Hay algo de Peso 246 en un camion con 123 ladrillos, bumblebee como robot y arena" {
+    paqueteDeLadrillos.cantidadDeLadillos(123)
+    bumblebee.transformar()
+    camion.cargar(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    arenaAGranel.peso(1234567)
+    camion.cargar(arenaAGranel)
+    assert.that(camion.hayAlgoDePeso(246))
+  }
+
+  test "No hay algo de Peso 246 en un camion con 123 ladrillos, bumblebee como robot y arena" {
+    paqueteDeLadrillos.cantidadDeLadillos(123)
+    bumblebee.transformar()
+    camion.cargar(paqueteDeLadrillos)
+    camion.cargar(bumblebee)
+    arenaAGranel.peso(1234567)
+    camion.cargar(arenaAGranel)
+    assert.notThat(camion.hayAlgoDePeso(2))
+  }
 }

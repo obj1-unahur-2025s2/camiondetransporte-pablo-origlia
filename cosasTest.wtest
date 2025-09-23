@@ -1,9 +1,33 @@
 import cosas.*
 
-describe "group of test for cosas" {
-
-  test "first test" {
-    assert.that(true)
+describe "test de cosas" {
+  test "Peso de knightRider" {
+    assert.equals(500, knightRider.peso())
   }
-
+  
+  test "Peligrosidad de knightRider" {
+    assert.equals(10, knightRider.peligrosidad())
+  }
+  
+  test "Peso de bumblebee" {
+    assert.equals(800, bumblebee.peso())
+  }
+  
+  test "Peligrosidad de bumblebee como auto" {
+    assert.equals(15, bumblebee.peligrosidad())
+  }
+  
+  test "Peligrosidad de bumblebee como robot" {
+    bumblebee.transformar()
+    assert.equals(30, bumblebee.peligrosidad())
+  }
+  
+  test "Peso de paqueteDeLadrillos" {
+    paqueteDeLadrillos.cantidadDeLadillos(250)
+    assert.equals(500, paqueteDeLadrillos.peso())
+  }
+  
+  test "Peligrosidad de paqueteDeLadrillos" {
+    assert.equals(2, paqueteDeLadrillos.peligrosidad())
+  }
 }
